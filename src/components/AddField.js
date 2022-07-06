@@ -1,20 +1,18 @@
-import { useState } from "react";
-import { TextField, Button, Checkbox } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { useState } from 'react'
+import { TextField, Button, Checkbox } from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 
 export const AddField = ({ onClickAdd }) => {
-  const [input, setInput] = useState();
-  const [checked, setChecked] = useState(false);
-
-  console.log(input);
+  const [input, setInput] = useState('')
+  const [checked, setChecked] = useState(false)
 
   const addTask = () => {
-    onClickAdd(input, checked);
-    setInput("");
-    setChecked(false);
-  };
+    onClickAdd(input, checked)
+    setInput('')
+    setChecked(false)
+  }
 
   return (
     <div className="field">
@@ -23,7 +21,7 @@ export const AddField = ({ onClickAdd }) => {
         icon={<RadioButtonUncheckedIcon />}
         checkedIcon={<CheckCircleIcon />}
         checked={checked}
-        onClick={(e)=>setChecked(!checked)}
+        onClick={(e) => setChecked(e.target.checked)}
       />
       <TextField
         value={input}
@@ -35,5 +33,5 @@ export const AddField = ({ onClickAdd }) => {
         <AddIcon />
       </Button>
     </div>
-  );
-};
+  )
+}

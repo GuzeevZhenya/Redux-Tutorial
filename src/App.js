@@ -1,35 +1,43 @@
-import { Paper, Divider, Button, List, Tabs, Tab } from "@mui/material";
-import { useReducer, useState } from "react";
-import { AddField } from "./components/AddField";
-import { Item } from "./components/Item";
-
-const arr = [];
+import { Paper, Divider, Button, List, Tabs, Tab } from '@mui/material'
+import { useReducer, useState } from 'react'
+import { AddField } from './components/AddField'
+import { Item } from './components/Item'
 
 function reducer(state, action) {
-  if (action.type === "ADD_TASK") {
-    console.log(state);
+  if (action.type === 'ADD_TASK') {
     return [
       ...state,
       {
         id: state.length ? state[state.length - 1].id + 1 : 1,
-        text: action.input,
-        completed: action.checked,
+        text: action.value.input,
+        completed: action.value.checked,
       },
-    ];
+    ]
   }
-  return state;
+  if (action.type === 'REMOVE_TASK') {
+    const newTask = state.filter((item) => item.id !== action.value)
+
+    return newTask
+  }
+  return state
 }
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, []);
+  const [state, dispatch] = useReducer(reducer, [])
 
   const addTask = (input, checked) => {
     dispatch({
-      type: "ADD_TASK",
-      input,
-      checked,
-    });
-  };
+      type: 'ADD_TASK',
+      value: { input, checked },
+    })
+  }
+
+  const removeTask = (id) => {
+    dispatch({
+      type: 'REMOVE_TASK',
+      value: id,
+    })
+  }
 
   return (
     <div className="App">
@@ -47,7 +55,13 @@ function App() {
         <Divider />
         <List>
           {state.map((obj) => (
-            <Item key={obj.id} text={obj.text} completed={obj.completed} />
+            <Item
+              key={obj.id}
+              text={obj.text}
+              id={obj.id}
+              completed={obj.completed}
+              removeTask={removeTask}
+            />
           ))}
         </List>
         <Divider />
@@ -57,7 +71,7 @@ function App() {
         </div>
       </Paper>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
