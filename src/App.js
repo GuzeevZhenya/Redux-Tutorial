@@ -39,7 +39,7 @@ function reducer(state, action) {
         return { ...item, completed: true }
       })
     } else {
-      return state.map((item) => {
+      return state.map((item) => { 
         return { ...item, completed: false }
       })
     }
@@ -130,10 +130,10 @@ function App() {
         </List>
         <Divider />
         <div className="check-buttons">
-          <Button onClick={selectAllTasks}>
+          <Button disabled={state.length === 0} onClick={selectAllTasks}>
             {selectedCheckbox ? 'Снять отметки' : 'Отметить всё'}
           </Button>
-          <Button onClick={clearAllTasks}>Очистить</Button>
+          <Button disabled={state.length === 0} onClick={clearAllTasks}>Очистить</Button>
         </div>
       </Paper>
     </div>
